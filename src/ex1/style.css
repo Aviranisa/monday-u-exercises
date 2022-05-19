@@ -1,8 +1,11 @@
+* {
+	margin: 0;
+}
 body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
+	/* height: 100vh; */
 	background: linear-gradient(135deg, rgb(119, 75, 238), rgb(190, 59, 230));
 	font-family: system-ui;
 }
@@ -57,7 +60,7 @@ h1 {
 .taskElement:hover {
 	overflow-y: hidden;
 	overflow-x: hidden;
-	height: fit-content;
+	height: max-content;
 }
 
 .clickable {
@@ -93,6 +96,12 @@ h1 {
 	border-radius: 50%;
 	padding: 5px;
 	background-color: rgba(127, 255, 212, 0.597);
+}
+
+.amountTasks {
+	color: rgb(177, 200, 213);
+	font-weight: 300;
+	font-size: small;
 }
 
 @keyframes elemet-size {
