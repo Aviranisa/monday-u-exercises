@@ -14,7 +14,7 @@ class ItemManager {
 		return JSON.parse(file);
 	}
 
-	async setAllItems(file) {
+	setAllItems(file) {
 		fs.writeFileSync(envFile.jsonFilePath, JSON.stringify(file), (err) => {
 			if (err) {
 				console.error(err);
@@ -31,10 +31,8 @@ class ItemManager {
 
 	removeItem(itemIndex) {
 		const file = this.getAllItems();
-		file.data = [
-			...file.data.filter((item, i) => i !== parseInt(itemIndex) - 1),
-		];
-		const newFIle = this.setAllItems(file);
+		file.data = [...file.data.filter((item, i) => i !== parseInt(itemIndex))];
+		this.setAllItems(file);
 		return;
 	}
 
