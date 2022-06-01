@@ -49,6 +49,14 @@ const createInquirer = (type, message, choices, callback) => {
 		});
 };
 
+function removeFirstWord(str) {
+	const indexOfSpace = str.indexOf(" ");
+	if (indexOfSpace === -1) {
+		return "";
+	}
+	return str.substring(indexOfSpace + 1);
+}
+
 program
 	.name("cli-todoApp")
 	.description("The best CLI for todo list and catch pokemons")
@@ -60,7 +68,7 @@ program
 	.action(() => {
 		const file = itemManager.getAllItems();
 		createInquirer("rawlist", "Which is better?", file.data, (answers) => {
-			console.log("Answer:", answers.item);
+			console.log(`${removeFirstWord(answers.item)} is the best!`);
 		});
 	});
 
