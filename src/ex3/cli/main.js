@@ -49,17 +49,6 @@ const createInquirer = (type, message, choices, callback) => {
 		});
 };
 
-const createCliAction = (command, description, action) => {
-	program
-		.command(command)
-		.description(description)
-		// .option("-c, --color <string>", "Result color", "white")
-		.action((answers) => {
-			action(answers);
-		});
-	// console.log(chalk[options.color](`Result: ${Number(temp) + String(city)}`));
-};
-
 program
 	.name("cli-todoApp")
 	.description("The best CLI for todo list and catch pokemons")
