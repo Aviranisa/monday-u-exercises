@@ -78,7 +78,7 @@ program
 	.argument("<starig>", envFile.addDescription)
 	.action((itemToAdd) => {
 		validateInput(itemToAdd);
-		console.log("item saved");
+		console.log(envFile.addMessage);
 	});
 
 program
@@ -92,16 +92,16 @@ program
 			file.data,
 			(answers) => {
 				validateRemovingItem(answers);
-				console.log(`item/s removed ${answers.item}`);
+				console.log(envFile.removeMessage, answers.item);
 			}
 		);
 	});
 
 program
 	.command("clear")
-	.description("Clean all the file data and decrement id to 0")
+	.description(envFile.clearDescription)
 	.action(() => {
 		let CleanFile = itemManager.clearItemsArray();
-		console.log(CleanFile, `Successfully clear`);
+		console.log(CleanFile, envFile.clearMessage);
 	});
 program.parse();
