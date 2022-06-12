@@ -63,7 +63,7 @@ program
 	.version("1.0.0");
 
 program
-	.command("get-items")
+	.command("get")
 	.description(envFile.getDescription)
 	.action(() => {
 		const file = itemManager.getAllItems();
@@ -73,7 +73,7 @@ program
 	});
 
 program
-	.command("add-item")
+	.command("add")
 	.description(envFile.addDescription)
 	.argument("<starig>", envFile.addDescription)
 	.action((itemToAdd) => {
@@ -82,7 +82,7 @@ program
 	});
 
 program
-	.command("remove-item")
+	.command("remove")
 	.description(envFile.removeDescription)
 	.action(() => {
 		const file = itemManager.getAllItems();
