@@ -1,14 +1,11 @@
 // Create an ItemClient class here. This is what makes requests to your express server (your own custom API!)
 
-const getAllTasks = async () => {
-	try {
-		const res = await fetch("/tasks");
-		if (res.ok) {
-			return res.json();
-		}
-	} catch (err) {
-		return err;
-	}
+const getAllItems = async () => {
+	const res = await fetch("/tasks");
+	return {
+		isResOk: res.ok,
+		items: await res.json(),
+	};
 };
 
 const addItem = async (item) => {
@@ -17,16 +14,24 @@ const addItem = async (item) => {
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(item),
 	});
-	return res.ok;
+	return {
+		isResOk: res.ok,
+		items: await res.json(),
+	};
 };
 
 const updateItem = async (itemToUpdate, itemId) => {
 	const res = await fetch(`/tasks/update/${itemId}`, {
 		method: "PUT",
-		headers: { "Content-Type": "application/json" },
+		headers: {
+			"Content-Type": "application/json",
+		},
 		body: JSON.stringify(itemToUpdate),
 	});
-	return res.ok;
+	return {
+		isResOk: res.ok,
+		items: await res.json(),
+	};
 };
 
 const deleteItem = async (itemId) => {
@@ -36,8 +41,10 @@ const deleteItem = async (itemId) => {
 			"Content-type": "application/json",
 		},
 	});
-	debugger;
-	return res.ok;
+	return {
+		isResOk: res.ok,
+		items: await res.json(),
+	};
 };
 
 const clearAll = async (itemId) => {
@@ -47,8 +54,13 @@ const clearAll = async (itemId) => {
 			"Content-type": "application/json",
 		},
 	});
-	debugger;
 	return res.ok;
 };
 
-export { getAllTasks, addItem, deleteItem, updateItem, clearAll };
+module.exports = {
+	getAllItems,
+	addItem,
+	deleteItem,
+	updateItem,
+	clearAll,
+};

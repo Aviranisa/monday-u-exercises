@@ -19,15 +19,26 @@ class ItemManager {
 		}
 	}
 
-	async updateItem(itemToUpdate, itemId) {
-		return item.update(itemToUpdate, { where: { id: itemId } });
+	async updateItem(itemData, itemId) {
+		const itemToUpdate = itemData;
+		if (
+			itemToUpdate.status &&
+			(itemToUpdate.doneAt === "1970-01-01 00:00:00" ||
+				itemToUpdate.doneAt === null)
+		) {
+			itemToUpdate.doneAt = Date.now();
+		} else {
+			itemToUpdate.doneAt = 0;
+		}
+		await item.update(itemToUpdate, { where: { id: itemId } });
+		return await this.getAllItems();
 	}
 
 	async removeItem(itemId) {
 		await item.destroy({
 			where: { id: itemId },
 		});
-		return this.getAllItems();
+		return await this.getAllItems();
 	}
 
 	async pokemonIdsHandle(pokeID) {
@@ -50,12 +61,13 @@ class ItemManager {
 			});
 			await this.setItem(itemObg);
 		}
-		return "created!";
+		return await this.getAllItems();
 	}
 
 	async clearAllItems() {
 		try {
-			return await item.destroy({ where: {} });
+			const numOfDestroyedItems = await item.destroy({ where: {} });
+			return numOfDestroyedItems > 0;
 		} catch (err) {
 			return err;
 		}
